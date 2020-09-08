@@ -1,0 +1,34 @@
+{
+  "name": "yelpcamp",
+  "version": "1.0.0",
+  "description": "A open-source project from udemy web course. View, upload, comment, pay and manage your favourite campgrounds",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "ejs": "^3.1.5",
+    "eslint": "^7.8.1",
+    "express-session": "^1.17.1",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.10.2",
+    "passport-local-mongoose": "^6.0.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guojunseven/YelpCamp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guojunseven/YelpCamp/issues"
+  },
+  "homepage": "https://github.com/guojunseven/YelpCamp#readme"
+}
