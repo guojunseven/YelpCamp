@@ -22,10 +22,10 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(flash());
-//local mongodb
-//mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true, useUnifiedTopology: true});
-//mongodb deployed on mlab
-mongoose.connect("mongodb+srv://guojun:960505@yelpcamp.usnzo.mongodb.net/YelpCamp?retryWrites=true&w=majority");
+
+var url = process.env.DATABASEURL;
+// env var setting 
+mongoose.connect(url);
 
 //PASSPORT CONFIGURATION
 app.use(require("express-session")({
