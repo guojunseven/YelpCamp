@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(flash());
 
+// mongodb://127.0.0.1:27017/yelp_camp
 var url = process.env.DATABASEURL;
 // env var setting 
 mongoose.connect(url);
