@@ -54,10 +54,12 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     //create a new campground and save it to DB
     Campground.create(newCampground, function(err, campground){
         if(err){
-            console.log(err);
+            console.log(err.message);
+            return res.redirect('back');
         } else{
             console.log("NEWLY CAMPGROUND ADDED");
             console.log(campground);
+            res.redirect("/campgrounds");
         }                  
     });
 });
