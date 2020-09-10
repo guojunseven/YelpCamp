@@ -121,9 +121,6 @@ router.post("/forgot", function(req, res, next){
                       "If you did not request this, please ignore this email and your password will remain unchanged"
             };
             smtpTransport.sendMail(mailOptions, function(err) {
-                if(err) {
-                    req.flash("error", "Something went wrong!");
-                }
                 console.log("mail sent");
                 req.flash("success", "An e-mail has been sent to " + user.email + " with further instrunctions.");
                 done(err, "done");
@@ -167,6 +164,7 @@ router.post("/reset/:token", function(req, res){
                     })
                 } else{
                     req.flash("error", "Passwords do not match.")
+                    return res.redirect("back");
                 }
             });
         },
@@ -185,11 +183,7 @@ router.post("/reset/:token", function(req, res){
                 text:"This is a confirmation that the password for your account " + user.email + " has just been changed!"
             };
             smtpTransport.sendMail(mailOptions, function(err) {
-                if(err) {
-                    req.flash("error", err.message);
-                }
-                console.log("mail sent");
-                req.flash("sucess", "Success! your password has been changed!");
+                req.flash("success", "Success! your password has been changed!");
                 done(err);
             });
 
