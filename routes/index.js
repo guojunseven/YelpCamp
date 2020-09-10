@@ -122,10 +122,10 @@ router.post("/forgot", function(req, res, next){
             };
             smtpTransport.sendMail(mailOptions, function(err) {
                 if(err) {
-                    req.flash("error", err.message);
+                    req.flash("error", "Something went wrong!");
                 }
                 console.log("mail sent");
-                req.flash("sucess", "An e-mail has been sent to " + user.email + " with further instrunctions.");
+                req.flash("success", "An e-mail has been sent to " + user.email + " with further instrunctions.");
                 done(err, "done");
             });
         }
