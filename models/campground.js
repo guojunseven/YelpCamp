@@ -22,7 +22,7 @@ const campgroundSchema = new mongoose.Schema({
     author:{
         id:{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Comment"
+            ref: "User"
         },
         username: String
     }

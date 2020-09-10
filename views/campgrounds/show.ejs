@@ -20,7 +20,7 @@
                     <p><%= campground.description  %></p>
                     <p>
                         <em>
-                        Submitted By <%= campground.author.username %>,
+                        Submitted By <a href="/users/<%= campground.author.id %>"><%= campground.author.username %></a>,
                         <%= moment(campground.createAt).fromNow() %>
                         </em>
                     </p>

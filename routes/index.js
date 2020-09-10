@@ -1,3 +1,5 @@
+const campground = require("../models/campground");
+
 var express = require("express"),
     router = express.Router(),
     passport = require("passport"), 
@@ -25,7 +27,11 @@ router.get("/register", function(req, res){
 //REGISTER POST
 router.post("/register", function(req, res){
     var newUser = new User({
-        username: req.body.username
+        username: req.body.username,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        avatar: req.body.avatar
     })
     //authenticate if it's admin
     if(req.body.admin === "secretcode") {
@@ -67,5 +73,24 @@ router.get("/logout", function(req, res){
     res.redirect("/campgrounds");
 })
 
+
+//USER PROFILE
+router.get("/users/:user_id", function(req, res){
+    User.findById(user_id, function(err, foundUser){
+        if(err){
+            req.flash("error", error.message);
+            res.redirect("back");
+        } else{
+            campground.find().where("author.id").equals(foundUser._id).exec(function(err, foundCampgrorunds){
+                if(err){
+                    req.flash("error", error.message);
+                    res.redirect("back");
+                } else{
+                    res.render("users/show",{user: foundUser, campgrounds: foundCampgrorunds});
+                }
+            })
+        }
+    })
+})
 
 module.exports = router;
