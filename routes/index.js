@@ -147,7 +147,7 @@ router.get("/reset/:token", function(req, res){
 })
 
 //RESET UPDATE
-router.post("/rest/:token", function(req, res){
+router.post("/reset/:token", function(req, res){
     async.waterfall([
         function(done) {
             User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}}, function(err, user){
