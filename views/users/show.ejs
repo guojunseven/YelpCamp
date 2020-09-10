@@ -8,9 +8,13 @@
         </div>
     </div>
     <div class="col-md-8">
-        <% campgrounds.forEach(function(campground){ %>
-            <a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a>
-        <% }) %>
+        <h3><%= user.username %>'s campgroungs:</h3>
+        <ul>
+            <% campgrounds.forEach(function(campground){ %>
+                <li><a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a></li>
+            <% }) %>
+        </ul>
+        
     </div>
 </div>
 <%-include("../partials/footer")%>
