@@ -48,7 +48,7 @@
                             <div>
                                 <p><%= comment.text %></p>
                                 <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
-                                <div class="pull-right">
+                                <div class="pull-right comment">
                                     <a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit" class="btn btn-xs btn-warning">Edit</a>
                                     <form class="delete-form" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
                                         <input type="submit" class="btn btn-xs btn-danger" value="Delete">
@@ -58,8 +58,7 @@
                                 <hr>
                             </div>   
                         </div>
-                    </div>
-                
+                    </div>]
                 <% }) %>
             </div>
         </div>
