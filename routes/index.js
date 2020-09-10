@@ -96,7 +96,7 @@ router.post("/forgot", function(req, res, next){
                     return res.redirect("/forgot");
                 }
                 user.resetPasswordToken = token;
-                user.restPasswordExpires = Date.now() + 3600000; // 1 hour
+                user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
                 user.save(function(err) {
                     done(err, token, user);
@@ -137,7 +137,7 @@ router.post("/forgot", function(req, res, next){
 
 //RESET PAGE
 router.get("/reset/:token", function(req, res){
-    User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$: Date.now()}}, function(err, user){
+    User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}}, function(err, user){
         if(!user) {
             req.flash("error", "Password reset token is invaild or has expired.");
             return res.redirect("/forgot");
