@@ -1,16 +1,16 @@
-<%-include("partials/header")%>
+<%-include("../partials/header")%>
 <div class="row">
     <div class="col-md-4">
         <h1><%= user.firstName + " " + user.lastName %></h1>
         <div class="thumbnail">
             <img src="<%= user.avatar %>" alt="user profile image">
-            <div class="caption"><a href="mailto:<%= user.email %>"><%= user.email %></a></div>
+             <div class="caption pull-right"><em>email:  </em><a href="mailto:<%= user.email %>"><em><%= user.email %></em></a></div>
         </div>
     </div>
     <div class="col-md-8">
         <% campgrounds.forEach(function(campground){ %>
-            <a href="/campgrounds/<%= campground.id %>"><%= campground.name</a>
+            <a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a>
         <% }) %>
     </div>
 </div>
-<%-include("partials/footer")%>
+<%-include("../partials/footer")%>

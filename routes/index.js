@@ -76,7 +76,7 @@ router.get("/logout", function(req, res){
 
 //USER PROFILE
 router.get("/users/:user_id", function(req, res){
-    User.findById(user_id, function(err, foundUser){
+    User.findById(req.params.user_id, function(err, foundUser){
         if(err){
             req.flash("error", error.message);
             res.redirect("back");
