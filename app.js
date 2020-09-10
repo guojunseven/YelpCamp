@@ -12,7 +12,8 @@ var express         = require("express"),
     indexRoutes     = require("./routes/index"),
     campgroundsRoutes = require("./routes/campgrounds"),
     commentsRoutes    = require("./routes/comments"),
-    flash           = require("connect-flash")
+    flash           = require("connect-flash"),
+    moment          = require("moment");
 
 
 //RESET DATA/
@@ -22,6 +23,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(flash());
+app.locals.moment = moment;
 
 // mongodb://127.0.0.1:27017/yelp_camp
 var url = process.env.DATABASEURL;
@@ -48,6 +50,7 @@ app.use(function(req, res, next){
     next();
 })
 
+//ROUTES
 app.use(indexRoutes);
 app.use("/campgrounds", campgroundsRoutes);
 app.use("/campgrounds/:id/comments", commentsRoutes);
