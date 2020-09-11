@@ -131,27 +131,31 @@ router.get("/:id/edit", middleware.checkCampgroundOwnerShip, function(req, res){
 });
 
 //UPDATGE CAMPGROUND ROUTE
-router.put("/:id", middleware.checkCampgroundOwnerShip, function(req, res){
-    geocoder.geocode(req.body.location, function (err, data) {
-        if (err || !data.length) {
-          req.flash('error', 'Invalid address');
-          return res.redirect('back');
-        }
-        req.body.campground.lat = data[0].latitude;
-        req.body.campground.lng = data[0].longitude;
-        req.body.campground.location = data[0].formattedAddress;
-    
-        //find and update the corresponding campground
-        Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
-            if(err){
-                req.flash("error", err.message);
-                res.redirect("/campgrounds");
-            } else{
-                req.flash("success","Successfully Updated!");
-                res.redirect("/campgrounds/" + req.params.id);
+router.put("/:id", middleware.checkCampgroundOwnerShip, upload.single('image'), function(req, res){
+    cloudinary.uploader.upload(req.file.path, function(result){
+        req.body.campground.image = result.secure_url;
+        geocoder.geocode(req.body.location, function (err, data) {
+            if (err || !data.length) {
+              req.flash('error', 'Invalid address');
+              return res.redirect('back');
             }
+            
+            req.body.campground.lat = data[0].latitude;
+            req.body.campground.lng = data[0].longitude;
+            req.body.campground.location = data[0].formattedAddress;
+        
+            //find and update the corresponding campground
+            Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
+                if(err){
+                    req.flash("error", err.message);
+                    res.redirect("/campgrounds");
+                } else{
+                    req.flash("success","Successfully Updated!");
+                    res.redirect("/campgrounds/" + req.params.id);
+                }
+            })
         })
-})
+    }) 
 });
 
 
