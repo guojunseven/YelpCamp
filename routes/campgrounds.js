@@ -105,7 +105,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
             }                  
         });
         });
-    //})
+    })
     
 });
 
