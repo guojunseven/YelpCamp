@@ -48,3 +48,63 @@
 .form-signin .form-control:focus {
   z-index: 2;
 }
+
+/* Avatar */
+
+
+
+.UserAvatarEditor {
+  cursor: pointer;
+  position: relative;
+}
+
+.UserAvatar {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  background-color: #fff;
+  border: 4px solid #fff;
+  border-radius: 8px;
+}
+
+.UserAvatar-inner {
+  vertical-align: top;
+}
+
+.UploadPicture-wrapper {
+  cursor: pointer;
+}
+
+.Avatar--large {
+  border-radius: 4px;
+}
+
+.Avatar {
+    background: #fff;
+    border-radius: 2px;
+}
+
+#avatar {
+  appearance: initial;
+  background-color: initial;
+  cursor: default;
+  align-items: baseline;
+  color: inherit;
+  text-align: start !important;
+  padding: initial;
+  border: initial;
+  -webkit-writing-mode: horizontal-tb !important;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  margin: 0em;
+  font: 400 13.3333px Arial;
+  display: none;
+}
+
+.UploadPicture-input {
+  display: none;
+}

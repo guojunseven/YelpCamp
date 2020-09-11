@@ -1,8 +1,12 @@
 <%-include("../partials/header")%>
 <div class="row d-flex justify-content-around">
-    <div class="col-md-4">
+    <div class="col-12 col-md-5 col-lg-3">
         <div class="card">
-            <img src="<%= user.avatar %>" class="card-img-top" alt="<%= user.firstName %>" + " " + "<%= user.lastName %>">
+            <div class="UserAvatarEditor pl-3">
+                <div class="UserAvatar">
+                    <img class="Avatar Avatar--large UserAvatar-inner" width="160" height="160" src="https://pic3.zhimg.com/83ef9c61c19ecadde7ae801a4e706e3b_xll.jpg"/>
+                </div> 
+            </div>
             <div class="card-body">
                 <h1 class="card-title"><%= user.firstName + " " + user.lastName %></h1>
                 <p class="card-text">
@@ -14,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-12 col-md-7 col-lg-9">
         <div class="card">
             <div class="card-body">
                 <h2 class="card-title"><%= user.username %>'s campgroungs:</h2>
@@ -41,4 +45,5 @@
         
     </div>
 </div>
+
 <%-include("../partials/footer")%>
