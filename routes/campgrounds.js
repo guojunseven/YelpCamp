@@ -92,6 +92,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
             var lng = data[0].longitude;
             var location = data[0].formattedAddress;
         newCampground = {name: name, price: price, image: image, description: description, author: author, location: location, lat: lat, lng: lng}
+        //newCampground = {name: name, price: price, image: image, description: description, author: author}
         //create a new campground and save it to DB
         Campground.create(newCampground, function(err, campground){
             if(err){
@@ -104,7 +105,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
             }                  
         });
         });
-    })
+    //})
     
 });
 
@@ -133,7 +134,10 @@ router.get("/:id/edit", middleware.checkCampgroundOwnerShip, function(req, res){
 //UPDATGE CAMPGROUND ROUTE
 router.put("/:id", middleware.checkCampgroundOwnerShip, upload.single('image'), function(req, res){
     cloudinary.uploader.upload(req.file.path, function(result){
-        req.body.campground.image = result.secure_url;
+        //check if upload image
+        if(result.secure_url && result.secure_url.length > 0){
+            req.body.campground.image = result.secure_url;
+        };
         geocoder.geocode(req.body.location, function (err, data) {
             if (err || !data.length) {
               req.flash('error', 'Invalid address');

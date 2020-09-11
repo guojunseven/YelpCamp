@@ -47,21 +47,30 @@
                             <div class="col-md-12 mb-2">
                                 <div class="card">
                                     <div class="card-body">
-                                        
-                                        <div class="float-left">
-                                            <p class="card-title"><strong><%= comment.author.username %></strong></p>
-                                            <p class="card-text"><%= comment.text %></p>
-                                        </div>
-                                        
-                                        <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
-                                        <div class="float-right">
-                                            <p><span><%= moment(comment.createdAt).fromNow() %></span></p>
-                                            <a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit" class="btn btn-sm btn-warning">Edit</a>
-                                            <form class="delete-form" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                                                <input type="submit" class="btn btn-sm btn-danger" value="Delete">
-                                            </form>
-                                        </div>
-                                        <% } %>
+                                        <div class="row">
+                                            <div class="col-12 col-lg-9">
+                                                <p class="card-title"><strong><%= comment.author.username %></strong></p>
+                                                <p class="card-text"><%= comment.text %></p>
+                                            </div>
+                        
+                                            <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+                                            
+                                            <div class="col-12 col-lg-3 text-right pl-0 d-flex flex-lg-column justify-content-lg-around justify-content-between">
+                                                <p class="mb-2 font-italic font-weight-bolder"><%= moment(comment.createdAt).fromNow() %></p>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit" class="btn btn-sm btn-warning">Edit</a>
+                                                        <form class="delete-form" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                                            <input type="submit" class="btn btn-sm btn-danger" value="Delete">
+                                                        </form>
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                           
+                                            <% } %>
+                                        </div> 
                                     </div>
                                 </div>  
                             </div>

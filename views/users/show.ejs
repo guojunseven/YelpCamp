@@ -1,19 +1,43 @@
 <%-include("../partials/header")%>
-<div class="row">
+<div class="row d-flex justify-content-around">
     <div class="col-md-4">
-        <h1><%= user.firstName + " " + user.lastName %></h1>
-        <div class="thumbnail">
-            <img src="<%= user.avatar %>" alt="user profile image">
-             <div class="caption pull-right"><em>email:  </em><a href="mailto:<%= user.email %>"><em><%= user.email %></em></a></div>
+        <div class="card">
+            <img src="<%= user.avatar %>" class="card-img-top" alt="<%= user.firstName %>" + " " + "<%= user.lastName %>">
+            <div class="card-body">
+                <h1 class="card-title"><%= user.firstName + " " + user.lastName %></h1>
+                <p class="card-text">
+                    <em>email:  </em><a href="mailto:<%= user.email %>"><em><%= user.email %></em></a>
+                    <% if(currentUser && user._id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+                    <a class="float-right btn btn-secondary btn-sm" href="/forgot">Reset Password</a>
+                    <% } %>
+                </p>
+            </div>
         </div>
     </div>
     <div class="col-md-8">
-        <h3><%= user.username %>'s campgroungs:</h3>
-        <ul>
-            <% campgrounds.forEach(function(campground){ %>
-                <li><a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a></li>
-            <% }) %>
-        </ul>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title"><%= user.username %>'s campgroungs:</h2>
+                
+                    <% campgrounds.forEach(function(campground){ %>
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="float-right"><em><strong>$<%=campground.price%>/night</strong></em></p>
+                                <h4 class="card-title"><%= campground.name %> - <%= moment(campground.createAt).format('YYYY-MM-DD, HH:mm:ss') %></h4>
+                                <p class="card-text"><%= campground.description %></p>
+                                <a class="btn btn-outline-info" href="/campgrounds/<%= campground.id %>">Go to campground</a>
+                                <% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+                                <a class = "btn btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+                                <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                                <% } %>
+                            </div>
+                        </div>
+                        
+                    <% }) %>
+            </div>
+        </div>
         
     </div>
 </div>
