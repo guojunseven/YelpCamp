@@ -11,8 +11,10 @@
                 <h1 class="card-title"><%= user.firstName + " " + user.lastName %></h1>
                 <p class="card-text">
                     <em>email:  </em><a href="mailto:<%= user.email %>"><em><%= user.email %></em></a>
-                    <% if(currentUser && user._id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+                    <% if(currentUser && user._id.equals(currentUser._id)) { %>
                     <a class="float-right btn btn-secondary btn-sm" href="/forgot">Reset Password</a>
+                    <% } else{%>
+                    <a class="float-right btn btn-success btn-sm" href="/follow/<%= user._id%>">Follow</a>
                     <% } %>
                 </p>
             </div>

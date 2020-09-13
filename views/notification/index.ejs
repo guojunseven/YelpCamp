@@ -1,0 +1,21 @@
+<%-include("../partials/header")%>
+<div class="container">
+    <div class="container text-center">
+        <h1>Notifications</h1>
+    </div>
+
+    <% allNotifications.forEach(function(notification) { %>
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title"><%= notification.username %> created a new campground</h2>
+            <p class="float-right"><%= moment(notification.createdAt).format("YYYY-MM-DD, HH:mm:ss") %></p>
+            <a class="card-text btn btn-info btn-sm" href="/campgrounds/<%= notification.campgroundId %>">
+                View Detail
+            </a>
+        </div>
+    </div>
+    <% }); %>
+
+</div>
+
+<%-include ("../partials/footer") %> 

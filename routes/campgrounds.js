@@ -2,6 +2,8 @@ var express = require("express"),
     router = express.Router(), 
     Campground = require("../models/campground"),
     middleware = require("../middleware");
+    User = require("../models/user");
+    Notification = require("../models/notification")
 
 // multer adn cloudinary configuration
 var multer = require('multer');
@@ -29,6 +31,7 @@ cloudinary.config({
 //import geocoder google
 var NodeGeocoder = require('node-geocoder');
 const e = require("express");
+const user = require("../models/user");
  
 var options = {
   provider: 'google',
@@ -82,7 +85,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
             id: req.user._id,
             username: req.user.username
         }
-        geocoder.geocode(req.body.location, function (err, data) {
+        geocoder.geocode(req.body.location, async function (err, data) {
             if (err || !data.length) {
                 console.log(err, data);
             req.flash('error', 'Invalid address');
@@ -94,16 +97,36 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
         newCampground = {name: name, price: price, image: image, description: description, author: author, location: location, lat: lat, lng: lng}
         //newCampground = {name: name, price: price, image: image, description: description, author: author}
         //create a new campground and save it to DB
-        Campground.create(newCampground, function(err, campground){
-            if(err){
-                console.log(err.message);
-                return res.redirect('back');
-            } else{
-                console.log("NEWLY CAMPGROUND ADDED");
-                console.log(campground);
-                res.redirect("/campgrounds");
-            }                  
-        });
+        try {
+            let campground = await Campground.create(newCampground);
+            let user = await User.findById(req.user._id).populate("followers").exec();
+            // create notification and add it to every followers
+            let newNotification = {
+                username: req.user.username,
+                campgroundId: campground.id
+            }
+            for(const follower of user.followers){
+                let notification = await Notification.create(newNotification);
+                follower.notifications.push(notification);
+                follower.save();
+            }
+            console.log("NEWLY CAMPGROUND ADDED");
+            res.redirect("/campgrounds/" + campground.id);
+        } catch(err) {
+            req.flash("error", err.message);
+            res.redirect("back");
+    }
+        
+        // Campground.create(newCampground, function(err, campground){
+        //     if(err){
+        //         console.log(err.message);
+        //         return res.redirect('back');
+        //     } else{
+        //         console.log("NEWLY CAMPGROUND ADDED");
+        //         console.log(campground);
+        //         res.redirect("/campgrounds");
+        //     }                  
+        // });
         });
     })
  
