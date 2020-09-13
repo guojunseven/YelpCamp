@@ -157,7 +157,7 @@ router.get("/:id/edit", middleware.checkCampgroundOwnerShip, function(req, res){
 //UPDATGE CAMPGROUND ROUTE
 router.put("/:id", middleware.checkCampgroundOwnerShip, upload.single('image'), async function(req, res){
 
-    if (req.file.path){
+    if (req.file){
         var result = await cloudinary.uploader.upload(req.file.path);
         //check if upload image
         if(result.secure_url && result.secure_url.length > 0){
