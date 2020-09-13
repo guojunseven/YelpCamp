@@ -4,7 +4,7 @@
         <div class="card">
             <div class="UserAvatarEditor pl-3">
                 <div class="UserAvatar">
-                    <img class="Avatar Avatar--large UserAvatar-inner" width="160" height="160" src="<%= user.image %>"/>
+                    <img class="Avatar Avatar--large UserAvatar-inner" width="160" height="160" src="<%= user.avatar %>">
                 </div> 
             </div>
             <div class="card-body">
@@ -13,7 +13,7 @@
                     <em>email:  </em><a href="mailto:<%= user.email %>"><em><%= user.email %></em></a>
                     <% if(currentUser && user._id.equals(currentUser._id)) { %>
                     <a class="float-right btn btn-secondary btn-sm" href="/forgot">Reset Password</a>
-                    <% } else{%>
+                    <% } else if(_map(user.followers, "_id").indexOf(currentUser._id))>
                     <a class="float-right btn btn-success btn-sm" href="/follow/<%= user._id%>">Follow</a>
                     <% } %>
                 </p>
