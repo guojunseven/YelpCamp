@@ -198,7 +198,7 @@ router.post("/reset/:token", function(req, res){
 //USER PROFILE
 router.get("/users/:user_id", async function(req, res){
     try{
-        let foundUser = await User.findById(req.params.user_id).populate("followers").exec();
+        let foundUser = await User.findById(req.params.user_id).exec();
         let foundCampgrounds = await Campground.find().where("author.id").equals(foundUser._id).exec();
         res.render("users/show", {user: foundUser, campgrounds: foundCampgrounds});
     } catch(err) {
